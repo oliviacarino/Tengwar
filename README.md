@@ -7,7 +7,7 @@
 
 I'm building a wall mountable XY-plotter that draws my monthly calendar, updates events as they're added, and sometimes doodles baby Balrogs! Wouldn't it be cool to bring something from our digital space into our physical reality? Better yet, what if this thing could actually serve a dual purpose of both *function* and *art*! 
 
-This will be a living, breathing document until I finish :) 
+*Please note that this README will be a living, breathing document until I finish :)*
 
 ---
 

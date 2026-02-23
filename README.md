@@ -13,7 +13,7 @@ But this iteration of the Tengwar is a wall mountable XY-plotter that draws your
 ![First Iteration](images/v1_physical.png)
 
 ### Circuit
-[![First Iteration](images/v1_circuit.png)](https://app.cirkitdesigner.com/project/9471f691-9f9b-46c3-be22-ff7668aa2cd)
+![First Iteration](images/v1_circuit.png)]
 
 ---
 

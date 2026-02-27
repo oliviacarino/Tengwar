@@ -10,11 +10,10 @@ I'm building a wall mountable XY-plotter that draws my monthly calendar, updates
 *Please note that this README will be a living, breathing document until I finish :)*
 
 ---
-
-## Get Started
-### Dependencies
+## Dependencies
 Python 3.10 
 
+## Get Started
 1. Create a new virtual environment by running `python3 -m venv .venv` and run `pip install -r requirements.txt` to install all dependencies. Start the virtual environment by running `source .venv/bin/activate`.
 
 ## Design

@@ -8,6 +8,12 @@ But this iteration of the Tengwar is a wall mountable XY-plotter that draws your
 
 ---
 
+## Get Started
+### Dependencies
+Python 3.10 
+
+1. Create a new virtual environment by running `python3 -m venv .venv` and run `pip install -r requirements.txt` to install all dependencies. Start the virtual environment by running `source .venv/bin/activate`.
+
 ## Design
 ### Physical
 ![First Iteration](images/v1_physical.png)

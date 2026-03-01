@@ -21,6 +21,9 @@ I'm building a wall mountable XY-plotter that draws my monthly calendar, updates
 ### Circuit Design
 ![First Iteration](images/v1_circuit.png)
 
+### UML
+![First Iteration](images/V1TengwarUML.svg)
+
 ---
 
 ## Materials

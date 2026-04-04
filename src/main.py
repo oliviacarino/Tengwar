@@ -31,22 +31,41 @@ def main():
 
     while True:
         try:
-            cmd = input("tengwar:~$ ").strip().lower()
+            cmd = input("tengwar> ").strip()
 
-            if cmd == "next-cal":
+            if not cmd:
+                continue
+
+            cmd_lower = cmd.lower()
+
+            if cmd_lower == "next-cal":
                 next_cal(args.month, args.year)
-            elif cmd == "sync-cal":
+            elif cmd_lower == "sync-cal":
                 sync_cal_events()
-            elif cmd == "quit" or cmd == "exit":
+            elif cmd_lower in ("quit", "exit"):
                 log.info("Shutting down")
                 break
+            elif ser and (cmd.upper().startswith("G") or cmd.upper().startswith("M")):
+                # Raw G-code passthrough to Arduino
+                ser.write((cmd + "\n").encode())
+                import time
+                time.sleep(0.1)
+                response = ""
+                while ser.in_waiting:
+                    response += ser.readline().decode(errors="replace")
+                if response:
+                    log.info(f"Arduino: {response.strip()}")
+                else:
+                    log.info("Arduino: (no response)")
+            elif not ser and (cmd.upper().startswith("G") or cmd.upper().startswith("M")):
+                log.warning("No Arduino connected — cannot send G-code")
             else:
                 log.warning(f"Unknown command: '{cmd}'")
 
         except KeyboardInterrupt:
             log.info("Interrupted, shutting down")
             break
-
+    
     if ser and ser.is_open:
         ser.close()
 

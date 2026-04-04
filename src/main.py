@@ -165,7 +165,7 @@ def setup_logging(debug: bool):
     fmt = "%(asctime)s [%(levelname)s] %(message)s"
     handlers = [
         logging.StreamHandler(sys.stdout),
-        logging.FileHandler("tengwar.log"),
+        logging.FileHandler("logs/tengwar.log"),
     ]
     logging.basicConfig(level=level, format=fmt, handlers=handlers)
 
@@ -196,7 +196,6 @@ def debug_info(args):
 
     # Try opening the configured port
     try:
-        import serial
         ser = serial.Serial(args.port, args.baud, timeout=2)
         log.debug(f"Successfully opened {args.port} at {args.baud} baud")
         ser.close()

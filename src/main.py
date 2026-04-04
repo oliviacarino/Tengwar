@@ -113,31 +113,44 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Tengwar"
     )
-
     parser.add_argument(
         "--next-cal",
         action="store_true",
         help="Draw the next calendar"
     )
-
     parser.add_argument(
         "--sync-cal",
         action="store_true",
         help="Update the calendar with the latest (if any) changes"
     )
-
     parser.add_argument(
     "--port",
     type=str,
     default="/dev/ttyACM0",
     help="Serial port the Arduino Mega is connected to (e.g. /dev/ttyACM0). Ex: python3 main.py --port /dev/ttyUSB0"
     )
-
     parser.add_argument(
         "--baud",
         type=int,
         default=250000,
         help="Baud rate for serial communication (default: 250000 for RAMPS/Marlin). Ex: python3 main.py --port /dev/ttyACM0 --baud 115200"
+    )
+    parser.add_argument(
+        "--month",
+        type=int,
+        default=datetime.now().month,
+        help="Current month as an integer (e.g. 3 for March). Defaults to system month."
+    )
+    parser.add_argument(
+        "--year",
+        type=int,
+        default=datetime.now().year,
+        help="Current year (e.g. 2026). Defaults to system year."
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print system info, list serial ports, and test the configured port"
     )
 
     return parser.parse_args()

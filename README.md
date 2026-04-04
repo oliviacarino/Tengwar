@@ -28,9 +28,12 @@ I'm building a wall mountable XY-plotter that draws my monthly calendar, updates
 
 ## Materials
 ### Core Compute & Control
-- Raspberry Pi 4 Model B (4 GB RAM)
-- Arduino 2650 R3
-- RAMPS 1.4 Shield
+- 1 x Raspberry Pi 4 Model B (4 GB RAM)
+    - 1 x SD Card
+    - 1 x USB A Data Cable
+- 1 x Arduino 2650 R3
+- 1 x RAMPS 1.4 Shield
+    - 2 x A4988 Drivers
 
 ### Motion Control
 - 2 × NEMA 17 Stepper Motors

@@ -9,6 +9,8 @@ from datetime import datetime
 import os
 import serial.tools.list_ports
 
+from gcal import fetch_events
+
 def main():
     args = parse_args()
     setup_logging(args.debug)
@@ -114,23 +116,13 @@ Fetches and applies events from current calendar (additions, deletions, edits).
 Manually triggered from the terminal (for now)
 """
 def sync_cal_events():
-    pass
     log = logging.getLogger(__name__)
     log.info("Syncing calendar events from Google Calendar")
 
-    # TODO: implement Google Calendar API integration
-    # Steps:
-    #   1. Load credentials from token.json (OAuth2)
-    #   2. Build a Google Calendar API service client
-    #   3. Fetch events for the current month
-    #   4. Diff against last known state (stored locally)
-    #   5. Re-draw affected day cells on the plotter
-    #
-    # Useful starting point:
-    #   pip install google-api-python-client google-auth-oauthlib
-    #   https://developers.google.com/calendar/api/quickstart/python
+    events = fetch_events(datetime.now().month, datetime.now().year)        
 
-    log.warning("sync_cal_events() not yet implemented")
+    for event in events:
+        log.info(f"  {event['start']}: {event['summary']}")
 
 def parse_args():
     parser = argparse.ArgumentParser(

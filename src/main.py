@@ -28,15 +28,60 @@ next_cal()
 Fetches and draws the next calendar. Called to set up the next calendar.
 Ex: if current calendar is February then user triggers next_cal() to set up March cal.
 """
-def next_cal():
-    pass
+def next_cal(month: int, year: int):
+    log = logging.getLogger(__name__)
+
+    # Increment month, wrap year if needed
+    if month == 12:
+        next_month = 1
+        next_year = year + 1
+    else:
+        next_month = month + 1
+        next_year = year
+
+    log.info(f"Drawing calendar for {next_month}/{next_year}")
+    draw_cal_template(next_month, next_year)
 
 """
 draw_cal_template()
-Draws a 6 x 7 grid.
+Draws a 6 x 7 matrix for the given month (and year).
+Determines the starting weekday and fills in day numbers across the grid.
+Each cell maps to a plotter coordinate where origin is top-left.
 """
-def draw_cal_template():
-    pass
+def draw_cal_template(month: int, year: int):
+    log = logging.getLogger(__name__)
+
+    first_day = datetime(year, month, 1)
+    start_weekday = first_day.weekday()  # Monday=0, Sunday=6
+    # Shift so Sunday=0 (standard calendar layout)
+    start_col = (start_weekday + 1) % 7
+
+    # How many days in this month
+    if month == 12:
+        days_in_month = (datetime(year + 1, 1, 1) - first_day).days
+    else:
+        days_in_month = (datetime(year, month + 1, 1) - first_day).days
+
+    log.info(f"Drawing {month}/{year}: {days_in_month} days, starting col {start_col}")
+
+    # Build 6x7 grid (rows x cols), None = empty cell
+    grid = [[None] * 7 for _ in range(6)]
+    day = 1
+    for row in range(6):
+        for col in range(7):
+            cell_index = row * 7 + col
+            if cell_index >= start_col and day <= days_in_month:
+                grid[row][col] = day
+                day += 1
+
+    # TODO: translate grid cells to plotter G-code coordinates (draw commands sent to Arduino)
+    # For now, logging the grid layout for debugging
+    log.debug("Calendar grid layout:")
+    days_header = " Su  Mo  Tu  We  Th  Fr  Sa"
+    log.debug(days_header)
+    for row in grid:
+        row_str = "".join(f"{d:3}  " if d else "     " for d in row)
+        log.debug(row_str)
 
 """
 sync_cal_events()

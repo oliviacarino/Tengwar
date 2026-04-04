@@ -9,7 +9,7 @@ from datetime import datetime
 import os
 import serial.tools.list_ports
 
-from gcal import fetch_events, list_calendars
+from gcal import fetch_events
 import serial_comms
 
 def main():
@@ -45,16 +45,13 @@ def main():
                 break
             elif cmd.upper().startswith("G") or cmd.upper().startswith("M"):
                 if serial_comms._ser:
-                    serial_comms.send_command(cmd)
-                    response = serial_comms.read_response()
+                    response = serial_comms.send_command(cmd)
                     if response:
                         log.info(f"Arduino: {response}")
                     else:
                         log.info("Arduino: (no response)")
                 else:
                     log.warning("No Arduino connected — cannot send G-code")
-            elif not ser and (cmd.upper().startswith("G") or cmd.upper().startswith("M")):
-                log.warning("No Arduino connected — cannot send G-code")
             else:
                 log.warning(f"Unknown command: '{cmd}'")
 
@@ -62,8 +59,7 @@ def main():
             log.info("Interrupted, shutting down")
             break
     
-    if serial_comms and serial_comms.is_open:
-        serial_comms.close()
+    serial_comms.close()
 
 """
 next_cal()

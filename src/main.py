@@ -10,6 +10,7 @@ import os
 import serial.tools.list_ports
 
 from gcal import fetch_events, list_calendars
+import serial_comms
 
 def main():
     args = parse_args()
@@ -20,12 +21,9 @@ def main():
         debug_info(args)
         return
 
-    # TODO Init on correct Arduino serial
-    ser = None
     try:
-        ser = serial.Serial(args.port, args.baud, timeout=2)
-        log.info(f"Connected to Arduino on {args.port} at {args.baud} baud")
-    except serial.SerialException as e:
+        serial_comms.open(args.port, args.baud)
+    except Exception as e:
         log.warning(f"Could not open serial port: {e}")
         log.warning("Running without Arduino connection — serial commands will be unavailable")
 
@@ -45,18 +43,16 @@ def main():
             elif cmd_lower in ("quit", "exit"):
                 log.info("Shutting down")
                 break
-            elif ser and (cmd.upper().startswith("G") or cmd.upper().startswith("M")):
-                # Raw G-code passthrough to Arduino
-                ser.write((cmd + "\n").encode())
-                import time
-                time.sleep(0.1)
-                response = ""
-                while ser.in_waiting:
-                    response += ser.readline().decode(errors="replace")
-                if response:
-                    log.info(f"Arduino: {response.strip()}")
+            elif cmd.upper().startswith("G") or cmd.upper().startswith("M"):
+                if serial_comms._ser:
+                    serial_comms.send_command(cmd)
+                    response = serial_comms.read_response()
+                    if response:
+                        log.info(f"Arduino: {response}")
+                    else:
+                        log.info("Arduino: (no response)")
                 else:
-                    log.info("Arduino: (no response)")
+                    log.warning("No Arduino connected — cannot send G-code")
             elif not ser and (cmd.upper().startswith("G") or cmd.upper().startswith("M")):
                 log.warning("No Arduino connected — cannot send G-code")
             else:
@@ -66,8 +62,8 @@ def main():
             log.info("Interrupted, shutting down")
             break
     
-    if ser and ser.is_open:
-        ser.close()
+    if serial_comms and serial_comms.is_open:
+        serial_comms.close()
 
 """
 next_cal()

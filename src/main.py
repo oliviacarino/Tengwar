@@ -6,6 +6,8 @@ import argparse
 import logging
 import sys
 from datetime import datetime
+import os
+import serial.tools.list_ports
 
 def main():
     args = parse_args()
@@ -85,10 +87,27 @@ def draw_cal_template(month: int, year: int):
 
 """
 sync_cal_events()
-Fetches and applies events from current calendar. 
+Fetches and applies events from current calendar (additions, deletions, edits). 
+Manually triggered from the terminal (for now)
 """
 def sync_cal_events():
     pass
+    log = logging.getLogger(__name__)
+    log.info("Syncing calendar events from Google Calendar")
+
+    # TODO: implement Google Calendar API integration
+    # Steps:
+    #   1. Load credentials from token.json (OAuth2)
+    #   2. Build a Google Calendar API service client
+    #   3. Fetch events for the current month
+    #   4. Diff against last known state (stored locally)
+    #   5. Re-draw affected day cells on the plotter
+    #
+    # Useful starting point:
+    #   pip install google-api-python-client google-auth-oauthlib
+    #   https://developers.google.com/calendar/api/quickstart/python
+
+    log.warning("sync_cal_events() not yet implemented")
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -136,6 +155,42 @@ def setup_logging(debug: bool):
         logging.FileHandler("tengwar.log"),
     ]
     logging.basicConfig(level=level, format=fmt, handlers=handlers)
+
+"""
+debug_info(args)
+Prints:
+    Current working directory
+    Configured --port and --baud values
+    Any serial port currently visible on the Pi from 'serial.tools.list_ports'
+        (and whether it can actually open and connect to your configured port)
+"""
+def debug_info(args):
+    log = logging.getLogger(__name__)
+    log.debug("── Debug Info ───────────────────────────────")
+    log.debug(f"Working dir    : {os.getcwd()}")
+    log.debug(f"Serial port    : {args.port}")
+    log.debug(f"Baud rate      : {args.baud}")
+    # TODO add more info as needed
+
+    # List all available serial ports
+    ports = list(serial.tools.list_ports.comports())
+    if ports:
+        log.debug("Available serial ports:")
+        for p in ports:
+            log.debug(f"  {p.device} — {p.description}")
+    else:
+        log.debug("No serial ports detected")
+
+    # Try opening the configured port
+    try:
+        import serial
+        ser = serial.Serial(args.port, args.baud, timeout=2)
+        log.debug(f"Successfully opened {args.port} at {args.baud} baud")
+        ser.close()
+    except Exception as e:
+        log.debug(f"Could not open {args.port}: {e}")
+
+    log.debug("─────────────────────────────────────────────")
 
 if __name__ == "__main__":
     main()

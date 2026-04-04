@@ -9,7 +9,7 @@ from datetime import datetime
 import os
 import serial.tools.list_ports
 
-from gcal import fetch_events
+from gcal import fetch_events, list_calendars
 
 def main():
     args = parse_args()

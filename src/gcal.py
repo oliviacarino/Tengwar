@@ -2,11 +2,21 @@
 
 import os
 import logging
+from datetime import datetime, timezone
+from dotenv import load_dotenv
+
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from datetime import datetime, timezone
+
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
+
+# Ignore if only pulling from your primary Google calendar
+CALENDAR_IDS = [
+    "primary",
+    os.getenv("ANNALIVIA_CALENDAR_ID")
+]
 
 # If you change these scopes, delete token.json and re-authenticate
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
@@ -63,22 +73,39 @@ def fetch_events(month: int, year: int):
 
     log.info(f"Fetching events for {month}/{year}")
 
-    result = service.events().list(
-        calendarId="primary",
-        timeMin=time_min,
-        timeMax=time_max,
-        singleEvents=True,
-        orderBy="startTime"
-    ).execute()
+    all_events = []
+    for cal_id in CALENDAR_IDS:
+        result = service.events().list(
+            calendarId=cal_id,
+            timeMin=time_min,
+            timeMax=time_max,
+            singleEvents=True,
+            orderBy="startTime"
+        ).execute()
+        events = result.get("items", [])
+        log.debug(f"  {cal_id}: {len(events)} events")
+        for event in events:
+            summary = event.get("summary", "(no title)")
+            start = event["start"].get("date") or event["start"].get("dateTime", "")
+            all_events.append({"summary": summary, "start": start})
 
-    events = result.get("items", [])
-    log.info(f"Found {len(events)} events")
+    all_events.sort(key=lambda e: e["start"])
+    log.info(f"Found {len(all_events)} total events across {len(CALENDAR_IDS)} calendars")
 
-    parsed = []
-    for event in events:
-        summary = event.get("summary", "(no title)")
-        start = event["start"].get("date") or event["start"].get("dateTime", "")
-        log.debug(f"  {start}: {summary}")
-        parsed.append({"summary": summary, "start": start})
+    for event in all_events:
+        log.debug(f"  {event['start']}: {event['summary']}")
 
-    return parsed
+    return all_events
+
+"""
+list_calendars()
+Prints all calendars accessible to the authenticated account.
+Run once to find calendar IDs. Use if including multiple/shared calendars. 
+Default sync_cal() just pulls primary Google calendar.
+"""
+def list_calendars():
+    log = logging.getLogger(__name__)
+    service = get_calendar_service()
+    calendars = service.calendarList().list().execute()
+    for cal in calendars.get("items", []):
+        log.info(f"  {cal['summary']}: {cal['id']}")

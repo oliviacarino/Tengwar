@@ -12,18 +12,41 @@ import serial.tools.list_ports
 def main():
     args = parse_args()
     setup_logging(args.debug)
-
     log = logging.getLogger(__name__)
-    log.info("Tengwar starting up")
-    log.debug(f"Args: {args}")
 
     if args.debug:
         debug_info(args)
-    if args.next_cal:
-        next_cal(args.month, args.year)
         return
-    if args.sync_cal:
-        sync_cal_events()
+
+    # TODO Init on correct Arduino serial
+    ser = None
+    try:
+        ser = serial.Serial(args.port, args.baud, timeout=2)
+        log.info(f"Connected to Arduino on {args.port} at {args.baud} baud")
+    except serial.SerialException as e:
+        log.warning(f"Could not open serial port: {e}")
+        log.warning("Running without Arduino connection — serial commands will be unavailable")
+
+    while True:
+        try:
+            cmd = input("tengwar:~$ ").strip().lower()
+
+            if cmd == "next-cal":
+                next_cal(args.month, args.year)
+            elif cmd == "sync-cal":
+                sync_cal_events()
+            elif cmd == "quit" or cmd == "exit":
+                log.info("Shutting down")
+                break
+            else:
+                log.warning(f"Unknown command: '{cmd}'")
+
+        except KeyboardInterrupt:
+            log.info("Interrupted, shutting down")
+            break
+
+    if ser and ser.is_open:
+        ser.close()
 
 """
 next_cal()

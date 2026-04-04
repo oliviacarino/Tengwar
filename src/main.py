@@ -1,18 +1,24 @@
 # Initialize 
 # Via CLI -- draw next calendar, manually trigger calendar sync 
-# Trigger calendar sync every 4 hours (pull new events, deletions, edits)
-
-# Actions
-# Process calendar template, publish to printer
-# Process calendar event data, publish to printer
+# Manually sync the calendar since changing the paper isn't automated.. yet ;)
 
 import argparse
+import logging
+import sys
+from datetime import datetime
 
 def main():
     args = parse_args()
+    setup_logging(args.debug)
 
+    log = logging.getLogger(__name__)
+    log.info("Tengwar starting up")
+    log.debug(f"Args: {args}")
+
+    if args.debug:
+        debug_info(args)
     if args.next_cal:
-        next_cal()
+        next_cal(args.month, args.year)
         return
     if args.sync_cal:
         sync_cal_events()
@@ -71,6 +77,20 @@ def parse_args():
     )
 
     return parser.parse_args()
+
+"""
+setup_logging(debug: bool)
+Called once at startup. Creates two log handlers: one that prints to your terminal (useful over SSH) 
+and one that writes to 'tengwar.log' on disk. If '--debug' is passed, the log level is set to DEBUG. 
+"""
+def setup_logging(debug: bool):
+    level = logging.DEBUG if debug else logging.INFO
+    fmt = "%(asctime)s [%(levelname)s] %(message)s"
+    handlers = [
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler("tengwar.log"),
+    ]
+    logging.basicConfig(level=level, format=fmt, handlers=handlers)
 
 if __name__ == "__main__":
     main()

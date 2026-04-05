@@ -6,7 +6,7 @@ import time
 
 MAX_RETRIES = 3
 RETRY_DELAY = 0.5
-RESPONSE_TIMEOUT = 30.0
+RESPONSE_TIMEOUT = 10.0
 
 log = logging.getLogger(__name__)
 

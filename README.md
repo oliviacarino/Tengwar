@@ -19,17 +19,17 @@ I'm building a wall mountable XY-plotter that draws my monthly calendar, updates
 4. Install dependencies: `pip install -r requirements.txt`
  
 ### Google Calendar
-5. Follow the [Google Calendar Integration](#google-calendar-integration) section below to set up your `credentials.json`
-6. Create a `.env` file in the project root with your shared calendar IDs (see the Google Calendar section for details). See `.env.example`.
-7. Run `sync-cal` once to trigger the OAuth browser flow and generate `token.json`. 
+1. Follow the [Google Calendar Integration](#google-calendar-integration) section below to set up your `credentials.json`
+2. Create a `.env` file in the project root with your shared calendar IDs (see the Google Calendar section for details). See `.env.example`.
+3. Run `sync-cal` once to trigger the OAuth browser flow and generate `token.json`. 
  
 ### Arduino Firmware
-8. Follow the [Firmware](#firmware) section below to flash Marlin onto the Arduino Mega
+1. Follow the [Firmware](#firmware) section below to flash Marlin onto the Arduino Mega
  
 ### Running
-9. Plug in the Arduino via USB 
-10. Run `python3 src/main.py --debug` to confirm the serial port and connection
-11. Run `python3 src/main.py --port <your_port>` to start
+1. Plug in the Arduino via USB 
+2. Run `python3 src/main.py --debug` to confirm the serial port and connection
+3. Run `python3 src/main.py --port <your_port>` to start
 
 ---
  
@@ -58,7 +58,7 @@ Tengwar syncs events from Google Calendar using the Google Calendar API. Follow 
 - Go to **APIs & Services** → **Credentials**
 - Click **+ Create Credentials** → **OAuth client ID**
 - Application type: **Desktop app** (this is correct even though the app runs on a Pi — the one-time OAuth flow runs on a machine with a browser, and the saved `token.json` is used for all future headless runs)
-- Name it `Tengwar` → **Create**
+- Name it `Tengwar` -> **Create**
 - Download the JSON file, rename it to `credentials.json`, and place it in the project root
  
 ### 5. Configure Calendar IDs
@@ -101,12 +101,9 @@ This setup is worth keeping in mind for any future project that involves custom 
 # Basic run (defaults to system date, /dev/ttyACM0)
 python src/main.py
  
-# Specify serial port (Mac)
+# Specify serial port (PC)
 python src/main.py --port /dev/<your_serial_port>
- 
-# Specify serial port (Pi)
-python src/main.py --port /dev/ttyACM0
- 
+
 # Draw next calendar from a specific month
 python src/main.py --next-cal --month 4 --year 2026
  

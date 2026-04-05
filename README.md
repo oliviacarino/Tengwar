@@ -9,6 +9,28 @@ I'm building a wall mountable XY-plotter that draws my monthly calendar, updates
 
 *Please note that this README will be a living, breathing document until I finish :)*
 
+## Materials
+### Electronics
+| Component | Qty | Approx. Cost |
+|---|---|---|
+| Raspberry Pi 4 Model B (4GB) | 1 | $55–$75 |
+| MicroSD Card (32GB, Class 10 / A1) | 1 | $8–$12 |
+| Arduino Mega 2560 R3 | 1 | $12–$45 |
+| RAMPS 1.4 Shield | 1 | $8–$15 |
+| A4988 Stepper Driver Modules | 2 | $2–$5 each |
+| NEMA 17 Stepper Motors | 2 | $10–$20 each |
+| KW12-3 Limit Switches | 2 | $1–$3 each |
+| SG90 Micro Servo (pen up/down) | 1 | $2–$5 |
+| USB-A to USB-B Data Cable | 1 | $5–$10 |
+<!--
+### Mechanical
+- Linear rails, rods, or belt system (XY motion)
+- Timing belts and pulleys or lead screws
+- Pen holder 
+- Wall-mount frame or backboard
+- Fasteners (M3/M4 screws, nuts, spacers)
+-->
+
 ---
 
 ## Get Started
@@ -88,7 +110,7 @@ This setup is worth keeping in mind for any future project that involves custom 
 ### Building & Flashing
  
 1. Clone the Marlin source: `git clone https://github.com/MarlinFirmware/Marlin.git`
-2. Copy `firmware/Configuration.h` and `firmware/Configuration_adv.h` into `Marlin/Marlin/`
+2. Copy `firmware/Configuration.h` and `firmware/Configuration_adv.h` (exist already within Tengwar's repo) into `Marlin/Marlin/`
 3. Open the Marlin folder in VS Code with the [PlatformIO](https://platformio.org/) and [Auto Build Marlin](https://marlinfw.org/docs/basics/auto_build_marlin.html) extensions installed
 4. Plug in the Arduino Mega via USB
 5. Click **Upload** in the Auto Build Marlin sidebar
@@ -116,42 +138,14 @@ python src/main.py --debug
  
 ---
 
-## Prototyping
-### Physical Design
+## References & Design Notes
+
+### V1 Prototyping
+#### Physical Design
 ![First Iteration](images/v1_physical.png)
 
-### Circuit Design
+#### Circuit Design
 ![First Iteration](images/v1_circuit.png)
 
-### UML
+#### UML
 ![First Iteration](images/V1TengwarUML.svg)
-
----
-
-## Materials
-### Core Compute & Control
-- 1 x Raspberry Pi 4 Model B (4 GB RAM)
-    - 1 x SD Card
-    - 1 x USB A Data Cable
-- 1 x Arduino 2650 R3
-- 1 x RAMPS 1.4 Shield
-    - 2 x A4988 Drivers
-
-### Motion Control
-- 2 × NEMA 17 Stepper Motors
-- 2 × A4988 Stepper Driver Modules
-- 2 x KW12-3 Limit Switches
-<!-- - 1 x Servo motor
-
-### Power
-- 24/5V Buck Boost Converter
-- 24V PSU
-- C14 Female
-
-### Mechanical
-- Linear rails, rods, or belt system (XY motion)
-- Timing belts and pulleys or lead screws
-- Pen holder 
-- Wall-mount frame or backboard
-- Fasteners (M3/M4 screws, nuts, spacers)
--->

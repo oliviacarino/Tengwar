@@ -152,7 +152,7 @@ def parse_args():
     parser.add_argument(
     "--port",
     type=str,
-    default="/dev/ttyACM0",
+    default=os.getenv("DEFAULT_PORT", "/dev/ttyACM0"),
     help="Serial port the Arduino Mega is connected to (e.g. /dev/ttyACM0). Ex: python3 main.py --port /dev/ttyUSB0"
     )
     parser.add_argument(

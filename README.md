@@ -140,9 +140,12 @@ python src/main.py --debug
 
 ## References & Design Notes
 
-### V1 Prototyping
-#### Physical Design
-![First Iteration](images/v1_physical.png)
+### Prototyping
+Version 1.0
+<p align="center">
+  <img src="images/v1_physical.png" width="400"/>
+</p>
+
 
 #### Circuit Design
 ![First Iteration](images/v1_circuit.png)

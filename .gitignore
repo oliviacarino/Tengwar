@@ -7,3 +7,5 @@ token.json
 __pycache__/
 .env
 __init__.py
+mech/STL/images/
+mech/STL/README.txt

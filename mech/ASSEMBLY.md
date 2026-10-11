@@ -28,6 +28,63 @@ I really liked the H-bot kinetics, but I really didn't want to use *three* diffe
     - Y-axis arm runs on **8 mm rods** with LM8UU bearings.
 - The pen gantry uses a SG90 servo, that move vertically on two short **5 mm rods**.
 
+## Physical Assembly
+
+### 1 Prep hardware
+- [ ] Print all required parts. See [Printed Parts](#printed-parts) for full list.
+- [ ] **Tap M5 threads into both ends of the 2060** (the center bores used for the end brackets)
+- [ ] Cut the 5 mm pen-lifter rods to ~7 cm
+- [ ] Cut the 8 mm y rods to length if needed, and deburr the ends
+- [ ] Clean the printed holes, ream them to size, and seat any captive nuts
+- [ ] Cut polypropylene strips for the wire guides
+
+### 2 X-axis
+
+- [ ] Bolt the motor-end bracket to the tapped extrusion end (M5×8). Mount the x stepper (M3×6 ×4) with the **30T pulley** (set screw on the shaft flat).
+- [ ] Bolt the idler-end bracket to the other end (M5×10 countersunk). Mount the idler (M5×25 countersunk, washers, nyloc).
+- [ ] Fit the feet, bolted from underneath into the V-slot with T-nuts (M5×10)
+- [ ] Fit the motor-end shield
+
+### 3 Gantry
+
+- [ ] Assemble the gantry plate: wheels + spacers, with the **eccentric spacers on one side**
+- [ ] Slide the gantry onto the 2060 from one end, **before** both end brackets are permanently tight if access requires it
+- [ ] Turn the eccentric spacers until the gantry rolls smoothly with **zero rock or play**, but no drag
+- [ ] Mount the printed gantry case
+- [ ] Mount the y stepper + 20T pulley to the gantry plate (M5×35 + nuts; trim them if they hit anything)
+
+### 4 Y-axis arm
+
+- [ ] Press the 4× LM8UU bearings into their housings
+- [ ] Fit the 8 mm rods through the bearings, then clamp them into the pen-end and other-end brackets (M3×12 + nuts)
+- [ ] Fit the 2× small y idler pulleys
+- [ ] Slide the full y travel by hand to check for binding and droop at full reach
+
+### 5 Pen lifter
+
+- [ ] Mount the SG90 servo
+- [ ] Assemble the lifter on the 5 mm rods; check the vertical slide is smooth with no rattle
+- [ ] Fit the pen clamp (M3×30 + printed bolt cap)
+- [ ] **Leave the servo horn off for now.** This will be calibrated in a later step.
+
+### 6 Belts
+
+- [ ] X belt: run it over and under the 2060, around the 30T pulley and idler, then clip both ends to the gantry
+- [ ] Y belt: run it around the 20T pulley and idlers, then clip it to the arm bracket
+- [ ] The y-axis brackets are designed so the belt can be removed or re-tensioned easily
+- [ ] Tension: firm, with no slack when the direction changes. It should not be guitar-string tight!
+
+### 7 Mount to base
+
+- [ ] Screw the feet down to the base board (wood screws). This adds a lot of stiffness and reduces pen droop.
+- [ ] If you're using a cutting mat, align the x-axis square to the mat rebate
+
+## Electronics & Wiring
+[tbd]
+
+## First Motion & Calibration
+[tbd]
+
 ## Bill of Materials
 *Note: Prices will be added later.*
 ### X-axis

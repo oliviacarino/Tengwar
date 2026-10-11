@@ -140,7 +140,8 @@ python src/main.py --debug
 
 ## References & Design Notes
 
-### Prototyping
+### Mech Design
+*See `/mech` for STL files and assembly instructions.*
 Version 1.0
 <p align="center">
   <img src="images/v1_physical.png" width="400"/>

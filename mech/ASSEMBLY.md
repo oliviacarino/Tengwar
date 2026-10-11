@@ -154,17 +154,17 @@ I really liked the H-bot kinetics, but I really didn't want to use *three* diffe
 
 ## Printed Parts
 Associated files can be found within `/mech/STL`:
-- X end bracket – motor end
-- X end bracket – idler end
-- Motor-end shield (cosmetic)
-- Feet
-- Arduino box
-- Arduino lid
-- Gantry case
-- Y-axis pen-end bracket
-- Y-axis other-end bracket
-- Pen lifter
-- M3 bolt cap
+- [X end bracket – motor end](../mech/STL/files/2060_x-axis_motor-end-bracket.stl)
+- [X end bracket – idler end](../mech/STL/files/2060_x-axis_other-end-bracket.stl)
+- Motor-end shield (optional cosmetic) 
+- [Feet](../mech/STL/files/2060_x-axis_foot.stl)
+- [Arduino box](../mech/STL/files/2060_arduino-box.stl)
+- [Arduino lid](../mech/STL/files/2060_arduino-box-lid.stl)
+- [Gantry case](../mech/STL/files/y-axis_gantry.stl)
+- [Y-axis pen-end bracket](../mech/STL/files/y-axis_pen-end.stl)
+- [Y-axis other-end bracket](../mech/STL/files/y-axis_other-end.stl)
+- [Pen lifter](../mech/STL/files/y-axis_pen-lifter.stl)
+- [M3 bolt cap](../mech/STL/files/m3_screw_cap.stl)
 
 Notes:
 - **Pen lifter tolerance:** adding about 0.1 mm extra clearance may give smoother sliding with no wobble on 5 mm rods.

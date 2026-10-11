@@ -96,7 +96,22 @@ I really liked the H-bot kinetics, but I really didn't want to use *three* diffe
 | Testing | Pens + paper | Drawing materials |
 
 ## Printed Parts
+Associated files can be found within `/mech/STL`:
+- X end bracket – motor end
+- X end bracket – idler end
+- Motor-end shield (cosmetic)
+- Feet
+- Arduino box
+- Arduino lid
+- Gantry case
+- Y-axis pen-end bracket
+- Y-axis other-end bracket
+- Pen lifter
+- M3 bolt cap
 
+Notes:
+- **Pen lifter tolerance:** adding about 0.1 mm extra clearance may give smoother sliding with no wobble on 5 mm rods.
+- Bearing pockets should press-fit firmly.
 
 ## References
 - XY-Plotter STL files (Thingiverse): https://www.thingiverse.com/thing:4200863/files
